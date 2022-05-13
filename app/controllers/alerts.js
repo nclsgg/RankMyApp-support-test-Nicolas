@@ -44,6 +44,14 @@ const save = async (req, res) => {
 const update = async (req, res) => {
   const { id } = req.params;
   const { email, frequency, term } = req.body;
+  const { error } = saveSchema.validate(req.body);
+
+  if (error) {
+    console.log(error)
+    return res.status(HTTP.UNPROCESSABLE_ENTITY).json(
+      joiErrorHandling(error)
+    );
+  }
 
   const alert = await Alert.findById(id);
   if (!alert) {
