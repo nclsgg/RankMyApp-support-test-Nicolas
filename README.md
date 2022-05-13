@@ -16,6 +16,8 @@ cp app/.env.example app/.env
 docker-compose -d --build
 ```
 
+Don't forget to rename the .env.example file to .env!
+
 After that, the API will be available at [http://localhost:3001](http://localhost:3001) and the web interface will be available at [http://localhost:3000](http://localhost:3000)
 
 PS.: If, for any reason the `MongoDB` container is taking way too long to start, if that happens, please restart the `support-test-node-back-end` container
