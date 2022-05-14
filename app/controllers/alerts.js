@@ -43,11 +43,10 @@ const save = async (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { email, frequency, term } = req.body;
+  const { email, frequency, term, created, updated } = req.body;
   const { error } = saveSchema.validate(req.body);
 
   if (error) {
-    console.log(error)
     return res.status(HTTP.UNPROCESSABLE_ENTITY).json(
       joiErrorHandling(error)
     );
@@ -63,7 +62,9 @@ const update = async (req, res) => {
   alert.overwrite({
     email: email || alert.email,
     frequency: frequency || alert.frequency,
-    term: term || alert.term
+    term: term || alert.term,
+    created: created || alert.created,
+    updated: updated || Date.now()
   });
 
   try {
