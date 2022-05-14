@@ -26,7 +26,7 @@ const save = async (req, res) => {
 
   const alert = await Alert.findOne({ email, term });
   if (alert) {
-    return res.status(HTTP.UNPROCESSABLE_ENTITY).json(
+    return res.status(HTTP.CONFLICT).json(
       commonErrorHandling('term', 'Term already registered for this user')
     );
   }
@@ -56,6 +56,14 @@ const update = async (req, res) => {
   if (!alert) {
     return res.status(HTTP.NOT_FOUND).json(
       commonErrorHandling('_id', 'Alert not found')
+    );
+  }
+
+  const alertAlreadyExists = await Alert.findOne({ email, term });
+
+  if (alertAlreadyExists && alertAlreadyExists.id !== alert.id) {
+    return res.status(HTTP.CONFLICT).json(
+      commonErrorHandling('term', 'Term already registered for this user')
     );
   }
 
