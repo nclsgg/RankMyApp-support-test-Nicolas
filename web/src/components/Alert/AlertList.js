@@ -27,7 +27,7 @@ class AlertList extends Component {
   renderAlerts() {
     const { alerts } = this.props;
 
-    return alerts.map((alert) => {
+    return alerts.slice(0).reverse().map((alert) => {
       return <AlertListItem
         key={ alert._id }
         alert={ alert } />
